@@ -3,14 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=960px, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="gbWidgets.js" defer></script>
     <title>gbWidget Example</title>
+    <style>
+      section.container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+      }
+    </style>
   </head>
   <body>
     <h1>Sample use of gbWidgets</h1>
-    <div class="container">
-      <dial-gauge data-value="0.4" data-footer="104A (<b>1</b>k, 33+<b>5</b>m)"
+    <section class="container">
+      <dial-gauge data-value="0.33" data-footer="104A (<b>1</b>k, 33+<b>5</b>m)"
         >Difficulty</dial-gauge
       >
       <dial-gauge
@@ -24,6 +31,6 @@
         labels='["10s","20s","30s","1m","1.5m","2m","5m","10m",">10m"]'
         >Review Intervals</bar-graph
       >
-    </div>
+    </section>
   </body>
 </html>
