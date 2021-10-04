@@ -57,10 +57,6 @@ class DialGauge extends HTMLElement {
       .dial-gauge * { box-sizing: border-box; }
 
       .dial-gauge {
-        display:flex;
-        flex-wrap: wrap;
-        flex-direction: column;
-        justify-content: space-around;
         align-items: center;
         color: #004033;
         background-color: #f4f4f4;
@@ -151,3 +147,13 @@ class DialGauge extends HTMLElement {
 
 // Define the new element
 customElements.define("dial-gauge", DialGauge);
+
+class BarGraph extends HTMLElement {
+  constructor() {
+    // Always call super first in constructor
+    super();
+
+    // Create a shadow root
+    const shadow = this.attachShadow({ mode: "open" });
+  }
+}
