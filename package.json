@@ -1,0 +1,26 @@
+{
+  "name": "gbwidgets",
+  "version": "1.0.0",
+  "description": "Gauge and Bar graph for Ganbarometer",
+  "main": "gbWidgets.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wrex/gbWidgets.git"
+  },
+  "author": "Rex Walters",
+  "license": "MIT-0",
+  "bugs": {
+    "url": "https://github.com/wrex/gbWidgets/issues"
+  },
+  "homepage": "https://github.com/wrex/gbWidgets#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "babel-jest": "^27.2.4",
+    "jest": "^27.2.4"
+  }
+}

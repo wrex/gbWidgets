@@ -1,21 +1,17 @@
 class DialGauge extends HTMLElement {
   constructor() {
-    // Always call super first in constructor
     super();
 
     // Create a shadow root
     const shadow = this.attachShadow({ mode: "open" });
 
-    //     return `<div id="${id}" class="gauge">
-    //     <h1>${title}</h1>
-    //     <div class="gauge__body">
-    //       <div class="gauge__fill"></div>
-    //       <div class="gauge__cover"></div>
-    //     </div>
-    //     <p>${text}</p>
-    //   </div>`;
+    // <div class="dial-gauge">
+    //   <h1>TEXTCONTENT</h1>
+    //   <div class="gauge__body"></div>
+    //   <div class="gauge__cover"></div>
+    //   <p>FOOTER</p>
+    // </div>
 
-    // Create spans
     const wrapper = document.createElement("div");
     wrapper.setAttribute("class", "dial-gauge");
 
@@ -148,7 +144,7 @@ class DialGauge extends HTMLElement {
 // Define the new element
 customElements.define("dial-gauge", DialGauge);
 
-class BarGraph extends HTMLElement {
+export default class BarGraph extends HTMLElement {
   constructor() {
     // Always call super first in constructor
     super();
