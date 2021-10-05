@@ -49,5 +49,13 @@ describe("BarGraph", () => {
     expect(bars[1].querySelector("label").textContent).toBe("b");
     expect(bars[2].querySelector("label").textContent).toBe("c");
   });
-  // it("Should include ", () => {});
+
+  it("Should adjust the height of each bar correctly", () => {
+    document.body.innerHTML = `<bar-graph data-values='[10,20,30]' data-labels='["a", "b", "c"]'>Test</bar-graph>`;
+    const graph = document.querySelector("bar-graph");
+    const bars = graph.shadowRoot.querySelectorAll(".bar");
+    expect(bars[0].style.height).toBe("33.333%");
+    expect(bars[1].style.height).toBe("66.667%");
+    expect(bars[2].style.height).toBe("100%");
+  });
 });

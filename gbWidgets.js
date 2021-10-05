@@ -201,14 +201,14 @@ export class BarGraph extends HTMLElement {
     values.forEach((value) => {
       const bar = document.createElement("div");
       bar.setAttribute("class", "bar");
-
       chart.appendChild(bar);
     });
 
-    // add span.bar-value and label to each bar
+    // add span.bar-value, label, and height to each bar
     const bars = chart.querySelectorAll("div.bar");
     const labelDisplays = JSON.parse(this.dataset.labels ?? "[]");
     let i = 0;
+    let maxValue = Math.max(...values);
     bars.forEach((bar) => {
       // add span.bar-value
       const span = document.createElement("span");
@@ -220,6 +220,11 @@ export class BarGraph extends HTMLElement {
       const label = document.createElement("label");
       label.innerHTML = labelDisplays[i] ?? "";
       bar.appendChild(label);
+
+      // add styling for bar height
+      bar.style.position = "relative";
+      let percent = 100 * (values[i] / maxValue).toPrecision(5);
+      bar.style.height = `${percent}%`;
 
       i += 1;
     });
