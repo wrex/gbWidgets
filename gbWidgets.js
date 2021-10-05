@@ -16,9 +16,9 @@
 //     --color: #004033;       /* Text elements */
 //     --bg-color: #f4f4f4;    /* background */
 //     --body-color: #b4c0be;  /* gauge background */
-//     --fill-color: #59c273;  /* gauge meter */
-//     --warn-color: #ece619;  /* gauge meter > 80% */
-//     --alert-color: #e50036; /* gauge meter > 80% */
+//     --fill-color: #59c273;  /* gauge fill color */
+//     --warn-color: #ece619;  /* gauge fill > 80% */
+//     --alert-color: #e50036; /* gauge fill > 80% */
 //   }
 // </style>
 //
@@ -84,7 +84,6 @@ export class DialGauge extends HTMLElement {
         text-align: center;
         color: var(--text-color, #004033);
         background-color: var(--bg-color, #f4f4f4);
-        border-radius: 5px;
         overflow: hidden;
         width: 100%;
         min-width: 120px;
@@ -136,7 +135,6 @@ export class DialGauge extends HTMLElement {
         background: var(--fill-color, #59c273);
         transform-origin: center top;
         transform: rotate(0.25turn);
-        transition: transform 0.2s ease-out;
       }
       
       .gauge__cover {
@@ -172,6 +170,27 @@ export class DialGauge extends HTMLElement {
 // Define the <dial-gauge> element
 customElements.define("dial-gauge", DialGauge);
 
+// Create custom <bar-graph> element
+//
+// Sample HTML:
+//
+// <body>
+//   <bar-graph data-values="[147,93,24,78,62]"
+//               data-labels='["A", "B", "C", "D", "E"]'
+//               >Widgets</bar-graph>
+// </body>
+//
+// Sample CSS styling:
+//
+// <style>
+//   bar-graph {
+//     --color: #004033;       /* Text elements */
+//     --bg-color: #f4f4f4;    /* background */
+//     --fill-color: #59c273;  /* bar fill color */
+//   }
+// </style>
+//
+// (Default color values shown)
 export class BarGraph extends HTMLElement {
   constructor() {
     // Always call super first in constructor
@@ -187,7 +206,8 @@ export class BarGraph extends HTMLElement {
     const style = document.createElement("style");
     style.textContent = `
       :host {
-        color: var(--color, black);
+        all: initial;
+        color: var(--text-color, #004033);
         background-color: var(--bg-color, #f4f4f4);
         height: 125px;
       }
@@ -198,7 +218,7 @@ export class BarGraph extends HTMLElement {
         display: inline-block;
         text-align: center;
         width: 100%;
-        margin: 0;
+        margin: 0 0 5px;
       }
       
       .chart {
@@ -206,17 +226,16 @@ export class BarGraph extends HTMLElement {
         grid-template-columns: repeat(${values.length}, 1fr);
         grid-template-rows: repeat(100, 1fr);
         grid-column-gap: 2px;
-        height: 65px;
+        height: 75px;
         min-width: 240px;
         width: 15%;
         padding: 5px;
-        background-color: var(--bg-color, #f4f4f4);
       }
       
       .bar {
         border-radius: 0;
         transition: all 0.6s ease;
-        background-color: #59c273;
+        background-color: var(--fill-color, #59c273);
         grid-row-start: 1;
         box-sizing: border-box;
         grid-row-end: 101;
@@ -234,7 +253,7 @@ export class BarGraph extends HTMLElement {
         display: block;
         width: 100%;
         position: absolute;
-        bottom: -18px;
+        bottom: -16px;
         font-size: 10px;
         margin: 0;
         padding: 0;
