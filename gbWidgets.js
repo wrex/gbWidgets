@@ -57,7 +57,6 @@ export class DialGauge extends HTMLElement {
 
     // Create some CSS to apply to the shadow dom
     const style = document.createElement("style");
-    // console.log(style.isConnected);
 
     // Use displayValue if passed, otherwise just "xx%"
     let display = this.dataset.display;
@@ -181,6 +180,68 @@ export class BarGraph extends HTMLElement {
     // Create a shadow root
     const shadow = this.attachShadow({ mode: "open" });
 
+    // Need the data-values for the CSS and elsewhere
+    const values = JSON.parse(this.dataset.values ?? "[]");
+
+    // Create some CSS to apply to the shadow dom
+    const style = document.createElement("style");
+    style.textContent = `
+      :host {
+        color: var(--color, black);
+        background-color: var(--bg-color, #f4f4f4);
+        height: 125px;
+      }
+
+      .bar-graph h1 {
+        font-size: 18px;
+        font-weight: 600;
+        display: inline-block;
+        text-align: center;
+        width: 100%;
+        margin: 0;
+      }
+      
+      .chart {
+        display: grid;
+        grid-template-columns: repeat(${values.length}, 1fr);
+        grid-template-rows: repeat(100, 1fr);
+        grid-column-gap: 2px;
+        height: 65px;
+        min-width: 240px;
+        width: 15%;
+        padding: 5px;
+        background-color: var(--bg-color, #f4f4f4);
+      }
+      
+      .bar {
+        border-radius: 0;
+        transition: all 0.6s ease;
+        background-color: #59c273;
+        grid-row-start: 1;
+        box-sizing: border-box;
+        grid-row-end: 101;
+        text-align: center;
+        margin-top: auto;
+      }
+      
+      .bar .bar-value {
+        position: relative;
+        top: -20px;
+        font-size: 10px;
+      }
+      
+      .bar > label {
+        position: absolute;
+        bottom: -23px;
+        left: 0;
+        font-size: 10px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+    `;
+    shadow.appendChild(style);
+
     // <div class="bar-graph">...</div>
     const wrapper = document.createElement("div");
     wrapper.setAttribute("class", "bar-graph");
@@ -197,7 +258,6 @@ export class BarGraph extends HTMLElement {
     wrapper.appendChild(chart);
 
     // add div.bar children to chart for each value
-    const values = JSON.parse(this.dataset.values ?? "[]");
     values.forEach((value) => {
       const bar = document.createElement("div");
       bar.setAttribute("class", "bar");
