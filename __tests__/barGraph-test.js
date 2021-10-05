@@ -42,7 +42,7 @@ describe("BarGraph", () => {
   });
 
   it("Should add a label to each bar", () => {
-    document.body.innerHTML = `<bar-graph data-values='[1,2,3]' data-display='["a", "b", "c"]'>Test</bar-graph>`;
+    document.body.innerHTML = `<bar-graph data-values='[1,2,3]' data-labels='["a", "b", "c"]'>Test</bar-graph>`;
     const graph = document.querySelector("bar-graph");
     const bars = graph.shadowRoot.querySelectorAll(".bar");
     expect(bars[0].querySelector("label").textContent).toBe("a");

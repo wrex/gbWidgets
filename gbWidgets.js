@@ -181,31 +181,48 @@ export class BarGraph extends HTMLElement {
     // Create a shadow root
     const shadow = this.attachShadow({ mode: "open" });
 
+    // <div class="bar-graph">...</div>
     const wrapper = document.createElement("div");
     wrapper.setAttribute("class", "bar-graph");
+    shadow.appendChild(wrapper);
 
+    // add <h1> child
     const heading = document.createElement("h1");
     heading.innerHTML = this.innerHTML;
+    wrapper.appendChild(heading);
 
+    // add div.chart child
     const chart = document.createElement("div");
     chart.setAttribute("class", "chart");
+    wrapper.appendChild(chart);
 
+    // add div.bar children to chart for each value
     const values = JSON.parse(this.dataset.values ?? "[]");
     values.forEach((value) => {
       const bar = document.createElement("div");
       bar.setAttribute("class", "bar");
 
-      const span = document.createElement("span");
-      span.setAttribute("class", "bar-value");
-      span.innerHTML = value;
-      bar.appendChild(span);
-
       chart.appendChild(bar);
     });
 
-    shadow.appendChild(wrapper);
-    wrapper.appendChild(heading);
-    wrapper.appendChild(chart);
+    // add span.bar-value and label to each bar
+    const bars = chart.querySelectorAll("div.bar");
+    const labelDisplays = JSON.parse(this.dataset.labels ?? "[]");
+    let i = 0;
+    bars.forEach((bar) => {
+      // add span.bar-value
+      const span = document.createElement("span");
+      span.setAttribute("class", "bar-value");
+      span.innerHTML = values[i];
+      bar.appendChild(span);
+
+      // add label
+      const label = document.createElement("label");
+      label.innerHTML = labelDisplays[i] ?? "";
+      bar.appendChild(label);
+
+      i += 1;
+    });
   }
 }
 
