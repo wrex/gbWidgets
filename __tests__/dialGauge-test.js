@@ -57,12 +57,18 @@ describe("DialGauge", () => {
     expect(styles.getPropertyValue("transform")).toBe("rotate(0.17turn)");
   });
 
-  it("Should default to 0% if no data-value", () => {
+  it("Should default to 25% if no data-value", () => {
     document.body.innerHTML = `<dial-gauge></dial-gauge>`;
     const gauge = document.querySelector("dial-gauge");
 
     const display = gauge.shadowRoot.querySelector(".gauge__cover").innerHTML;
-    expect(display).toBe("0%");
+    expect(display).toBe("25%");
+
+    const styles = window.getComputedStyle(
+      gauge.shadowRoot.querySelector(".gauge__fill")
+    );
+    // 25% means turn the rectangle 0.25/2 turns
+    expect(styles.getPropertyValue("transform")).toBe("rotate(0.125turn)");
   });
 
   it("Should display 0% if data-value < 0", () => {

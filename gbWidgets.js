@@ -53,19 +53,19 @@ export class DialGauge extends HTMLElement {
     gaugeBody.appendChild(gaugeCover);
 
     const footer = document.createElement("p");
-    footer.innerHTML = this.getAttribute("data-footer");
+    footer.innerHTML = this.dataset.footer;
 
     // Create some CSS to apply to the shadow dom
     const style = document.createElement("style");
     // console.log(style.isConnected);
 
     // Use displayValue if passed, otherwise just "xx%"
-    let display = this.getAttribute("data-display");
-    let value = this.getAttribute("data-value");
+    let display = this.dataset.display;
+    let value = this.dataset.value ? parseFloat(this.dataset.value) : "0.25";
     value = value < 0 ? 0 : value;
     value = value > 1 ? 1 : value;
     display = display ? display : `${Math.round(value * 100)}%`;
-    gaugeCover.textContent = display;
+    gaugeCover.innerHTML = display;
     gaugeFill.style.transform = `rotate(${value / 2}turn)`;
 
     if (value >= 0.9) {
@@ -184,7 +184,28 @@ export class BarGraph extends HTMLElement {
     const wrapper = document.createElement("div");
     wrapper.setAttribute("class", "bar-graph");
 
+    const heading = document.createElement("h1");
+    heading.innerHTML = this.innerHTML;
+
+    const chart = document.createElement("div");
+    chart.setAttribute("class", "chart");
+
+    const values = JSON.parse(this.dataset.values ?? "[]");
+    values.forEach((value) => {
+      const bar = document.createElement("div");
+      bar.setAttribute("class", "bar");
+
+      const span = document.createElement("span");
+      span.setAttribute("class", "bar-value");
+      span.innerHTML = value;
+      bar.appendChild(span);
+
+      chart.appendChild(bar);
+    });
+
     shadow.appendChild(wrapper);
+    wrapper.appendChild(heading);
+    wrapper.appendChild(chart);
   }
 }
 
