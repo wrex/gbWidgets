@@ -170,7 +170,7 @@ export class DialGauge extends HTMLElement {
   }
 }
 
-// Define the new element
+// Define the <dial-gauge> element
 customElements.define("dial-gauge", DialGauge);
 
 export class BarGraph extends HTMLElement {
@@ -180,5 +180,13 @@ export class BarGraph extends HTMLElement {
 
     // Create a shadow root
     const shadow = this.attachShadow({ mode: "open" });
+
+    const wrapper = document.createElement("div");
+    wrapper.setAttribute("class", "bar-graph");
+
+    shadow.appendChild(wrapper);
   }
 }
+
+// Define the <bar-graph> element
+customElements.define("bar-graph", BarGraph);
