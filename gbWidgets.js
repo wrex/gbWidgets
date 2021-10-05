@@ -1,4 +1,29 @@
-class DialGauge extends HTMLElement {
+// Create custom <dial-gauge> element
+//
+// Sample HTML:
+//
+// <body>
+//   <dial-gauge data-value="0.33"
+//               data-display="19s"
+//               data-footer="Elapsed"
+//               >Seconds</dial-Gauge>
+// </body>
+//
+// Sample CSS styling:
+//
+// <style>
+//   dial-gauge {
+//     --color: #004033;       /* Text elements */
+//     --bg-color: #f4f4f4;    /* background */
+//     --body-color: #b4c0be;  /* gauge background */
+//     --fill-color: #59c273;  /* gauge meter */
+//     --warn-color: #ece619;  /* gauge meter > 80% */
+//     --alert-color: #e50036; /* gauge meter > 80% */
+//   }
+// </style>
+//
+// (Default color values shown)
+export class DialGauge extends HTMLElement {
   constructor() {
     super();
 
@@ -37,25 +62,29 @@ class DialGauge extends HTMLElement {
     // Use displayValue if passed, otherwise just "xx%"
     let display = this.getAttribute("data-display");
     let value = this.getAttribute("data-value");
+    value = value < 0 ? 0 : value;
+    value = value > 1 ? 1 : value;
     display = display ? display : `${Math.round(value * 100)}%`;
     gaugeCover.textContent = display;
     gaugeFill.style.transform = `rotate(${value / 2}turn)`;
 
     if (value >= 0.9) {
       // red for > 90%
-      gaugeFill.style.backgroundColor = "#e50036";
+      gaugeFill.style.backgroundColor = "var(--alert-color, #e50036)";
     } else if (value >= 0.8) {
       // yellow for > 80%
-      gaugeFill.style.backgroundColor = "#ece619";
+      gaugeFill.style.backgroundColor = "var(--warn-color, #ece619)";
     }
 
     style.textContent = `
-      .dial-gauge * { box-sizing: border-box; }
-
-      .dial-gauge {
-        align-items: center;
-        color: #004033;
-        background-color: #f4f4f4;
+      :host {
+        all: initial;
+        display: flex;
+        /*contain: content;*/
+        flex-direction: column;
+        text-align: center;
+        color: var(--text-color, #004033);
+        background-color: var(--bg-color, #f4f4f4);
         border-radius: 5px;
         overflow: hidden;
         width: 100%;
@@ -64,22 +93,22 @@ class DialGauge extends HTMLElement {
         height: 125px;
         padding: 0 10px;
       }
-      
-      .dial-gauge h1 {
+
+      h1 {
         font-size: 18px;
         font-weight: 600;
-        margin: 0;
+        margin: 0 0 5px;
         text-align: center;
         display: inline-block;
         width: 70%;
       }
       
-      .dial-gauge p {
+      p {
         font-size: 10px;
-        margin: 0;
+        margin: 5px 0 0 0;
       }
       
-      .dial-gauge label {
+      label {
         margin: 0;
         text-align: center;
         width: 100%;
@@ -88,33 +117,33 @@ class DialGauge extends HTMLElement {
         color: #bbb;
       }
       
-      .dial-gauge .gauge__body {
+      .gauge__body {
         width: 100%;
         height: 0;
         padding-bottom: 50%;
-        background: #b4c0be;
+        background: var(--body-color, #b4c0be);
         position: relative;
         border-top-left-radius: 100% 200%;
         border-top-right-radius: 100% 200%;
         overflow: hidden;
       }
       
-      .dial-gauge .gauge__fill {
+      .gauge__fill {
         position: absolute;
         top: 100%;
         left: 0;
         width: inherit;
         height: 100%;
-        background: #59c273;
+        background: var(--fill-color, #59c273);
         transform-origin: center top;
         transform: rotate(0.25turn);
         transition: transform 0.2s ease-out;
       }
       
-      .dial-gauge .gauge__cover {
+      .gauge__cover {
         width: 75%;
         height: 150%;
-        background-color: #f4f4f4;
+        background-color: var(--bg-color, #f4f4f4);
         border-radius: 50%;
         position: absolute;
         top: 25%;
@@ -144,7 +173,7 @@ class DialGauge extends HTMLElement {
 // Define the new element
 customElements.define("dial-gauge", DialGauge);
 
-export default class BarGraph extends HTMLElement {
+export class BarGraph extends HTMLElement {
   constructor() {
     // Always call super first in constructor
     super();
