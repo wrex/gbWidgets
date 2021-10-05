@@ -231,9 +231,10 @@ export class BarGraph extends HTMLElement {
       }
       
       .bar > label {
+        display: block;
+        width: 100%;
         position: absolute;
-        bottom: -23px;
-        left: 0;
+        bottom: -18px;
         font-size: 10px;
         margin: 0;
         padding: 0;
