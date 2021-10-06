@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         gbWidgetExample
-// @namespace    http://tampermonkey.net/
+// @namespace    https://tsuoh.com
 // @version      0.1
 // @description  Demo of gbWidgets
 // @author       Rex Walters
