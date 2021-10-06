@@ -25,7 +25,7 @@
 // </style>
 //
 // (Default values shown)
-export class DialGauge extends HTMLElement {
+class DialGauge extends HTMLElement {
   constructor() {
     super();
 
@@ -198,7 +198,7 @@ customElements.define("dial-gauge", DialGauge);
 // </style>
 //
 // (Default values shown)
-export class BarGraph extends HTMLElement {
+class BarGraph extends HTMLElement {
   constructor() {
     // Always call super first in constructor
     super();
