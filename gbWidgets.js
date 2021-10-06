@@ -19,10 +19,12 @@
 //     --fill-color: #59c273;  /* gauge fill color */
 //     --warn-color: #ece619;  /* gauge fill > 80% */
 //     --alert-color: #e50036; /* gauge fill > 80% */
+// .   --font-family: "Open Sans", "Helvetica Neue",
+//                    Helvetica, Arial, sans-serif;
 //   }
 // </style>
 //
-// (Default color values shown)
+// (Default values shown)
 export class DialGauge extends HTMLElement {
   constructor() {
     super();
@@ -78,11 +80,11 @@ export class DialGauge extends HTMLElement {
     style.textContent = `
       :host {
         all: initial;
+        font-family: var(--font-family, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif);
         display: flex;
         /*contain: content;*/
         flex-direction: column;
         text-align: center;
-        color: var(--text-color, #004033);
         background-color: var(--bg-color, #f4f4f4);
         overflow: hidden;
         width: 100%;
@@ -99,11 +101,13 @@ export class DialGauge extends HTMLElement {
         text-align: center;
         display: inline-block;
         width: 70%;
+        color: var(--text-color, #004033);
       }
       
       p {
         font-size: 10px;
         margin: 5px 0 0 0;
+        color: var(--text-color, #004033);
       }
       
       label {
@@ -112,7 +116,7 @@ export class DialGauge extends HTMLElement {
         width: 100%;
         font-size: 12px;
         line-height: 16px;
-        color: #bbb;
+        color: var(--text-color, #004033);
       }
       
       .gauge__body {
@@ -154,6 +158,7 @@ export class DialGauge extends HTMLElement {
         padding-bottom: 25%;
         box-sizing: border-box;
         font-size: 25px;
+        color: var(--text-color, #004033);
       }
       
     `;
@@ -187,10 +192,12 @@ customElements.define("dial-gauge", DialGauge);
 //     --color: #004033;       /* Text elements */
 //     --bg-color: #f4f4f4;    /* background */
 //     --fill-color: #59c273;  /* bar fill color */
+// .   --font-family: "Open Sans", "Helvetica Neue",
+//                    Helvetica, Arial, sans-serif;
 //   }
 // </style>
 //
-// (Default color values shown)
+// (Default values shown)
 export class BarGraph extends HTMLElement {
   constructor() {
     // Always call super first in constructor
@@ -207,6 +214,7 @@ export class BarGraph extends HTMLElement {
     style.textContent = `
       :host {
         all: initial;
+        font-family: var(--font-family, "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif);
         color: var(--text-color, #004033);
         background-color: var(--bg-color, #f4f4f4);
         height: 125px;
@@ -219,6 +227,7 @@ export class BarGraph extends HTMLElement {
         text-align: center;
         width: 100%;
         margin: 0 0 5px;
+        color: var(--text-color, #004033);
       }
       
       .chart {
@@ -247,6 +256,7 @@ export class BarGraph extends HTMLElement {
         position: relative;
         top: -20px;
         font-size: 10px;
+        color: var(--text-color, #004033);
       }
       
       .bar > label {
@@ -258,6 +268,7 @@ export class BarGraph extends HTMLElement {
         margin: 0;
         padding: 0;
         text-align: center;
+        color: var(--text-color, #004033);
       }
     `;
     shadow.appendChild(style);
